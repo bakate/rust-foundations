@@ -1,5 +1,5 @@
 use divan::{Bencher, black_box};
-use rust_foundations::calculate_completion_percentage;
+use rust_foundations::{ProgressError, calculate_completion_percentage};
 
 fn main() {
     divan::main();
@@ -7,20 +7,20 @@ fn main() {
 
 /// A single valid progress computation.
 #[divan::bench]
-fn valid_progress() -> u32 {
-    calculate_completion_percentage(black_box(5), black_box(8)).unwrap_or_default()
+fn valid_progress() -> Result<u32, ProgressError> {
+    calculate_completion_percentage(black_box(5), black_box(8))
 }
 
 /// Error path: target sessions is zero.
 #[divan::bench]
-fn zero_target_error() -> bool {
-    calculate_completion_percentage(black_box(5), black_box(0)).is_err()
+fn zero_target_error() -> Result<u32, ProgressError> {
+    calculate_completion_percentage(black_box(5), black_box(0))
 }
 
 /// Error path: completed sessions exceed the target.
 #[divan::bench]
-fn completed_exceeds_target_error() -> bool {
-    calculate_completion_percentage(black_box(9), black_box(8)).is_err()
+fn completed_exceeds_target_error() -> Result<u32, ProgressError> {
+    calculate_completion_percentage(black_box(9), black_box(8))
 }
 
 /// Batch of mixed inputs (valid, zero target, exceeding target), summing valid results.
