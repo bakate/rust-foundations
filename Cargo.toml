@@ -4,3 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+
+[dev-dependencies]
+divan = { version = "6.0.0", package = "codspeed-divan-compat" }
+
+[[bench]]
+name = "progress"
+harness = false
