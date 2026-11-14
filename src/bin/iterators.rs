@@ -1,12 +1,7 @@
-fn select_long_topics(
-    topics: &[String],
-    minimum_character_count: usize,
-) -> Vec<String> {
+fn select_long_topics(topics: &[String], minimum_character_count: usize) -> Vec<String> {
     topics
         .iter()
-        .filter(|topic| {
-            topic.chars().count() >= minimum_character_count
-        })
+        .filter(|topic| topic.chars().count() >= minimum_character_count)
         .cloned()
         .collect()
 }
